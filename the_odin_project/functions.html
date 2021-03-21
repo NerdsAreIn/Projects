@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <title>Some JS Functions</title>
+    <meta charset="UTF-8">
+    </head>
+  <body>
+      <script>
+
+let add7 = function(number) {
+return number + 7;
+}
+
+let multiply = (a, b) => a * b;
+
+function capitalise(string) {
+let firstLetter = string.charAt(0);
+let otherLetters = string.slice(1);
+let lowerLetters = otherLetters.toLowerCase();
+let lowerString = string.replace(otherLetters, lowerLetters);
+let initialCapital = firstLetter.toUpperCase();
+let finalString = lowerString.replace(firstLetter, initialCapital);
+return finalString;
+}
+
+let lastLetterString = prompt("Enter a word", "");
+
+function lastLetter() {
+return lastLetterString[lastLetterString.length-1];
+}
+
+let result = lastLetter();
+let body = document.querySelector("body");
+body.innerHTML = result;
+      </script>
+  </body>  
+ 
