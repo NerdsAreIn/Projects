@@ -1,0 +1,50 @@
+`-<!DOCTYPE html>
+<html lang="en-GB">
+<head> 
+    <title>JS DOM test</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<button id="btn">Click Me Too</button>
+    <script>
+const p1 = document.createElement('p');
+p1.style.color = "red";
+p1.textContent = "Hey I'm red!";
+const h3 = document.createElement("h3");
+h3.textContent = "I'm a blue h3!";
+const div = document.createElement("div");
+div.style.cssText = "border: 1px solid black; background-color: pink";
+const h1 = document.createElement("h1");
+h1.innerHTML = "<span>I'm in a div!</span>";
+const p2 = document.createElement("p");
+p2.textContent = "ME TOO!";
+const body = document.firstElementChild;
+body.appendChild(p1);
+body.appendChild(h3);
+h3.setAttribute("style", "color: blue");
+div.appendChild(p2);
+div.insertBefore(h1, p2);    
+body.appendChild(div);
+/* you can use a NAMED FUNCTION as the function value of an event handler/listener 
+- without brackets (except for inline event handlers): */  
+function removeElement() {
+	div.removeChild(p2);
+}
+div.onmouseover = removeElement;
+
+div.onmouseover = () => div.removeChild(p2);
+
+// shorthand arrow function form of event listener syntax:
+div.addEventListener("click", () => div.removeChild(h1));
+btn.addEventListener('mouseover', function (e) {
+  console.log(e);
+});
+btn.addEventListener('click', function (e) {
+  console.log(e.target);
+});
+btn.addEventListener('dblclick', function (e) {
+  e.target.style.background = 'blue';
+});
+    </script>
+</body>
+</html>
