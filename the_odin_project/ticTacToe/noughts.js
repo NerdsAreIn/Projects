@@ -7,10 +7,13 @@ const gameBoard = (function() {
         return player;
 	};
 	const createSign = function() {
-		sign = document.createTextNode(player.symbol);
-        sign.className = 
+        sign = document.createTextNode(player.symbol);
+        //sign.className = "sign";         
 		console.log({sign});
         return sign;
+	};
+	const checkForWinner = function() {
+
 	};
 
 	let noughtsAndCrosses = [];
@@ -20,9 +23,13 @@ const gameBoard = (function() {
 		squares[i].addEventListener("click", function() {
             takeTurns();
 			createSign();
-			squares[i].appendChild(sign);
-			noughtsAndCrosses[i] = sign.nodeValue;
-			checkForWinner();			
+            if (!(squares[i].contains(sign))) {
+            squares[i].appendChild(sign);
+			noughtsAndCrosses[squares[i].id] = sign.nodeValue;
+            console.log({noughtsAndCrosses});
+            }
+            else return;			
+			//checkForWinner();			
 		});
 	}	
 })();

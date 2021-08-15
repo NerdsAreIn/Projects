@@ -8,4 +8,7 @@ margin: 1px auto;
 }
 .squares {
 border: 1px solid blue;
+font-size: 90px;
+text-align: center;
+vertical-align: middle;
 }
