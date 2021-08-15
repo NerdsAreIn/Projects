@@ -1,0 +1,11 @@
+#gameboard {
+display: grid;
+width: 400px;
+border: 4px solid black;
+height: 400px;
+grid-template: 1fr 1fr 1fr/1fr 1fr 1fr;
+margin: 1px auto;
+}
+.squares {
+border: 1px solid blue;
+}
