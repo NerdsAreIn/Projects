@@ -10,5 +10,7 @@ margin: 1px auto;
 border: 1px solid blue;
 font-size: 90px;
 text-align: center;
-vertical-align: middle;
+}
+.nought {
+color: grey;
 }
