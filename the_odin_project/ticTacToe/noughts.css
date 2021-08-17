@@ -1,16 +1,78 @@
+* {
+box-sizing: border-box;
+}
+@font-face {
+font-family: "white-spray";
+src: url("fonts/white\ spray.ttf");
+}
+@font-face {
+font-family: "black-spray";
+src: url("fonts/spray\ black.ttf");
+}
+#title-div {
+z-index: 1;
+/*border: 3px solid pink;*/
+text-align: center;
+padding: 5px;
+margin: 10px;
+}
+h1 {
+font-family: "black-spray";
+font-size: 60px;
+margin: 5px;
+z-index: 2;
+}
+#title-span {
+font-family: "white-spray";
+z-index: 3;
+background-color: white;
+padding-left: 20px;
+}
+body {
+position: relative;
+background: linear-gradient(to right, black 50%, white 50%);
+padding: 0;
+z-index: -1;
+}
 #gameboard {
 display: grid;
-width: 400px;
+width: 300px;
 border: 4px solid black;
-height: 400px;
+height: 300px;
 grid-template: 1fr 1fr 1fr/1fr 1fr 1fr;
-margin: 1px auto;
+margin: 20px 150px 5px 50px;
+float: right;
 }
 .squares {
-border: 1px solid blue;
-font-size: 90px;
+border: 1px solid black;
+font-size: 80px;
 text-align: center;
 }
+#playerControls {
+float: left;
+margin: 20px 30px 5px 100px;
+font-weight: bold;
+line-height: 40px;
+background-color: white;
+padding: 10px;
+border: 10px groove black;
+}
 .nought {
-color: grey;
+color: rgb(240, 240, 240);
+text-shadow: 7px 7px 2px black;
+}
+input {
+margin: 10px;
+}
+img {
+width: 40px;
+height: auto;
+box-shadow: 2px 2px 2px black;
+vertical-align: middle;
+}
+.player-info {
+margin: 10px auto;
+padding: 5px;
+display: inline-block;
+/*border: 2px solid red;*/
 }
