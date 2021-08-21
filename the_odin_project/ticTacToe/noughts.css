@@ -9,6 +9,42 @@ src: url("fonts/white\ spray.ttf");
 font-family: "black-spray";
 src: url("fonts/spray\ black.ttf");
 }
+@font-face {
+font-family: "fat-child";
+src: url("fonts/AFatChild.ttf");
+}
+@font-face {
+font-family: "gall";
+src: url("fonts/Gallagher.ttf");
+}
+@font-face {
+font-family: "black-spray";
+src: url("fonts/spray\ black.ttf");
+}
+@font-face {
+font-family: "learners1";
+src: url("fonts/LettersForLearners.ttf");
+}
+@font-face {
+font-family: "learners2";
+src: url("fonts/LettersForLearnersOutlineBold.ttf");
+}
+@font-face {
+font-family: "mancunia";
+src: url("fonts/Mancunia.ttf");
+}
+@font-face {
+font-family: "neretta";
+src: url("fonts/Neretta.ttf");
+}
+@font-face {
+font-family: "soubrette";
+src: url("fonts/Soubrette.ttf");
+}
+@font-face {
+font-family: "sude";
+src: url("fonts/Sudegnakno2.ttf");
+}
 #title-div {
 z-index: 1;
 /*border: 3px solid pink;*/
@@ -71,6 +107,7 @@ box-shadow: 2px 2px 2px black;
 vertical-align: middle;
 }
 .player-info {
+font-family: 
 margin: 10px auto;
 padding: 5px;
 display: inline-block;
