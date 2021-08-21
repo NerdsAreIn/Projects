@@ -10,7 +10,7 @@ font-family: "black-spray";
 src: url("fonts/spray\ black.ttf");
 }
 @font-face {
-font-family: "fat-child";
+font-family: "fatChild";
 src: url("fonts/AFatChild.ttf");
 }
 @font-face {
@@ -18,8 +18,8 @@ font-family: "gall";
 src: url("fonts/Gallagher.ttf");
 }
 @font-face {
-font-family: "black-spray";
-src: url("fonts/spray\ black.ttf");
+font-family: "mancunia";
+src: url("fonts/Mancunia.ttf");
 }
 @font-face {
 font-family: "learners1";
@@ -28,10 +28,6 @@ src: url("fonts/LettersForLearners.ttf");
 @font-face {
 font-family: "learners2";
 src: url("fonts/LettersForLearnersOutlineBold.ttf");
-}
-@font-face {
-font-family: "mancunia";
-src: url("fonts/Mancunia.ttf");
 }
 @font-face {
 font-family: "neretta";
@@ -44,6 +40,14 @@ src: url("fonts/Soubrette.ttf");
 @font-face {
 font-family: "sude";
 src: url("fonts/Sudegnakno2.ttf");
+}
+.player-info {
+font-family: "gall";
+margin: 10px auto;
+padding: 5px;
+font-size: 20px;
+display: inline-block;
+/*border: 2px solid red;*/
 }
 #title-div {
 z-index: 1;
@@ -79,6 +83,10 @@ grid-template: 1fr 1fr 1fr/1fr 1fr 1fr;
 margin: 20px 150px 5px 50px;
 float: right;
 }
+.disabled {
+border: 4px solid grey;
+opacity: 0.1;
+}
 .squares {
 border: 1px solid black;
 font-size: 80px;
@@ -92,6 +100,7 @@ line-height: 40px;
 background-color: white;
 padding: 10px;
 border: 10px groove black;
+text-align: center;
 }
 .nought {
 color: rgb(240, 240, 240);
@@ -106,10 +115,13 @@ height: auto;
 box-shadow: 2px 2px 2px black;
 vertical-align: middle;
 }
-.player-info {
-font-family: 
-margin: 10px auto;
-padding: 5px;
-display: inline-block;
-/*border: 2px solid red;*/
+p {
+font-family: "learners1";
+font-size: 20px;
+margin: 10px;
+}
+button {
+font-family: "mancunia";
+font-size: 22px;
+margin: 15px auto;
 }
