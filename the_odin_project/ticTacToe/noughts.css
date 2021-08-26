@@ -41,6 +41,29 @@ src: url("fonts/Soubrette.ttf");
 font-family: "sude";
 src: url("fonts/Sudegnakno2.ttf");
 }
+@keyframes pulse_animation {
+    0% { transform: scale(1); }
+    5% { transform: scale(1.01); }
+	10% { transform: scale(1.02); }
+	15% { transform: scale(1.03); }
+	20% { transform: scale(1.04); }
+	25% { transform: scale(1.05); }
+	30% { transform: scale(1.06); }
+	35% { transform: scale(1.07); }	
+	40% { transform: scale(1.08); }
+	45% { transform: scale(1.09); }
+	50% { transform: scale(1.1); background-color: white; box-shadow: 2px 2px 8px lightgrey;}
+	55% { transform: scale(1.09); }
+    60% {transform: scale(1.08);}
+    65% {transform: scale(1.07);}
+    70% { transform: scale(1.06); }
+    75% { transform: scale(1.05); }
+    80% { transform: scale(1.04); }
+    85% { transform: scale(1.03); }
+    90% { transform: scale(1.02); }
+    95% { transform: scale(1.01); }
+	100% { transform: scale(1); }
+}
 .player-info {
 font-family: "gall";
 margin: 10px auto;
@@ -76,9 +99,9 @@ z-index: -1;
 }
 #gameboard {
 display: grid;
-width: 300px;
+width: 320px;
 border: 4px solid black;
-height: 300px;
+height: 320px;
 grid-template: 1fr 1fr 1fr/1fr 1fr 1fr;
 margin: 20px 150px 5px 50px;
 float: right;
@@ -98,16 +121,28 @@ margin: 20px 30px 5px 100px;
 font-weight: bold;
 line-height: 40px;
 background-color: white;
-padding: 10px;
+padding: 3px;
 border: 10px groove black;
 text-align: center;
+height: 320px;
 }
 .nought {
 color: rgb(240, 240, 240);
 text-shadow: 7px 7px 2px black;
 }
 input {
-margin: 10px;
+margin: 5px;
+padding: 1px;
+font-family: "fatchild";
+font-size: 18px;
+text-indent: 10px;
+width: 150px;
+height: 30px;
+border: 1px solid black;
+}
+input:active, input:focus, input:focus-visible {
+box-shadow: 2px 2px 6px grey;
+outline: 2px solid black;
 }
 img {
 width: 40px;
@@ -118,10 +153,20 @@ vertical-align: middle;
 p {
 font-family: "learners1";
 font-size: 20px;
-margin: 10px;
+margin: -1px;
 }
 button {
 font-family: "mancunia";
+border-radius: 5px;
 font-size: 22px;
-margin: 15px auto;
+padding: 3px;
+margin: 15px 0;
+animation-name: pulse_animation;
+animation-duration: 1300ms;
+transform-origin:70% 70%;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
 }
+
+
+

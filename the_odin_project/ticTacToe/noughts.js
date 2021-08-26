@@ -3,13 +3,20 @@ const board = document.getElementById("gameboard");
 const playerControls = document.getElementById("playerControls");
 const displayText = document.getElementById("displayText");
 let squares = Array.from(document.getElementsByClassName("squares"));
+const player1Name = document.getElementById("player1Name");
+const player2Name = document.getElementById("player2Name");
 startButton.addEventListener("click", function() {
+   startButton.style.visibility = "hidden";
    squares.forEach(square => {
 		if (square.hasChildNodes()) {
 			console.log("child found!");
 			square.innerHTML = "";
 		}
 	});
+    if (player1Name.value) {player1.username = player1Name.value;}
+    else player1.username = "Nought";
+	if (player2Name.value) {player2.username = player2Name.value;}
+    else player2.username = "Cross";
     board.classList.remove("disabled");
 	const gameBoard = (function() {
 		let player;
@@ -17,7 +24,7 @@ startButton.addEventListener("click", function() {
 		let noughtsAndCrosses = [];
 		let sign;
 		let signContainer;
-		displayText.textContent = "Nought goes first.";
+		displayText.textContent = `${player1.username} goes first.`;
 		const takeTurns = function() {
 			if (player == player1) player = player2;
 			else player = player1;
@@ -43,13 +50,14 @@ startButton.addEventListener("click", function() {
 		};
 		const createReplayButton = function() {
 			startButton.textContent = "Play Again";
+            startButton.style.visibility = "visible";
 		};
         const displayResult = function(winner) {
-			if (winner == undefined) {
-				displayText.textContent = "It's a tie!";
+			if (winner == "no winner") {
+				displayText.innerHTML = "<p>GAME OVER.</p><p>It's a tie.</p>";
 			}
             else {
-				displayText.textContent = `The winner is ${winner.name}.`;
+				displayText.innerHTML = `<p>GAME OVER.</p><p>The winner is ${winner.username}.</p>`;
 				console.log({winner});
             }
 		};
@@ -63,15 +71,12 @@ startButton.addEventListener("click", function() {
 			|| noughtsAndCrosses[7] == "X" && noughtsAndCrosses[5] == "X" && noughtsAndCrosses[3] == "X"
 			|| noughtsAndCrosses[4] == "X" && noughtsAndCrosses[5] == "X" && noughtsAndCrosses[6] == "X"||			noughtsAndCrosses[1] == "X" && noughtsAndCrosses[4] == "X" && noughtsAndCrosses[7] == "X" ||			noughtsAndCrosses[3] == "X" && noughtsAndCrosses[6] == "X" && noughtsAndCrosses[9] == "X" || 		    noughtsAndCrosses[1] == "X" && noughtsAndCrosses[2] == "X" && noughtsAndCrosses[3] == "X" || 		    noughtsAndCrosses[7] == "X" && noughtsAndCrosses[8] == "X" && noughtsAndCrosses[9] == "X"   ) {
 				winner = player2;
-				//alert(`The winner is ${winner.name}!`);
-				//console.log({winner});
 				endGame(winner);
 				return winner;
 			}
 			else if (Object.values(noughtsAndCrosses).length == 9 && noughtsAndCrosses.length == 10 && winner == undefined) {
-				//alert("It's a tie!");
-                winner = "no winner";
-				endGame(); 
+				winner ="no winner";
+				endGame(winner); 
                 return winner;       
 		    }
 		};	
@@ -81,8 +86,11 @@ startButton.addEventListener("click", function() {
 				}
 				else {
 					displayText.textContent = "";
+					// Alternate between two players on each click:
 					takeTurns();
+					// Generate the corresponding sign for the current player:
 					createSign();
+					// Put the sign in the clicked square if that square is empty:
 					if (!(squares[i].hasChildNodes())) {
 						squares[i].appendChild(signContainer);
 						noughtsAndCrosses[squares[i].id] = sign.nodeValue;
@@ -98,7 +106,6 @@ startButton.addEventListener("click", function() {
 		}
 	})();
 });
-
 
 const createPlayer = (name, symbol) => {
 	return {name, symbol};
