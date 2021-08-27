@@ -1,6 +1,11 @@
 * {
 box-sizing: border-box;
 }
+body {
+position: relative;
+z-index: -1;
+padding: 0;
+}
 @font-face {
 font-family: "white-spray";
 src: url("fonts/white\ spray.ttf");
@@ -26,16 +31,8 @@ font-family: "learners1";
 src: url("fonts/LettersForLearners.ttf");
 }
 @font-face {
-font-family: "learners2";
-src: url("fonts/LettersForLearnersOutlineBold.ttf");
-}
-@font-face {
 font-family: "neretta";
 src: url("fonts/Neretta.ttf");
-}
-@font-face {
-font-family: "soubrette";
-src: url("fonts/Soubrette.ttf");
 }
 @font-face {
 font-family: "sude";
@@ -71,6 +68,7 @@ padding: 5px;
 font-size: 20px;
 display: inline-block;
 /*border: 2px solid red;*/
+z-index: -1;
 }
 #title-div {
 z-index: 1;
@@ -166,6 +164,33 @@ animation-duration: 1300ms;
 transform-origin:70% 70%;
 animation-iteration-count: infinite;
 animation-timing-function: linear;
+}
+#choice-screen {
+height: 100vh;
+width: 100vw;
+z-index: 1;
+background-color: grey;
+margin: 0;
+position: absolute;
+text-align: center;
+border: 10px solid lightgrey;
+outline: 3px solid black;
+transition: opacity 1s;
+}
+#choice-screen.gone {
+opacity: 0;
+}
+.choice-button {
+width: 180px;
+margin: 50px;
+height: 80px;
+font-size: 50px;
+opacity: inherit;
+}
+h2 {
+margin: 50px 0 30px;
+font-family: "black-spray";
+font-size: 40px;
 }
 
 

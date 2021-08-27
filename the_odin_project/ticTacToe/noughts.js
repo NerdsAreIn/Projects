@@ -5,6 +5,22 @@ const displayText = document.getElementById("displayText");
 let squares = Array.from(document.getElementsByClassName("squares"));
 const player1Name = document.getElementById("player1Name");
 const player2Name = document.getElementById("player2Name");
+const AI_button = document.getElementsByClassName("choice-button")[0];
+const twoPlayerButton = document.getElementsByClassName("choice-button")[1];
+const choiceScreen = document.getElementById("choice-screen");
+let mode;
+
+const gameControl = (function() {
+	const closeChoiceScreen = function() {
+		choiceScreen.className = "gone";
+// make a function to set choiceScreen display to "none" after 2 seconds
+        setTimeout()
+	};
+	AI_button.addEventListener("click", function() {
+	mode = "AI";
+	closeChoiceScreen();
+	});
+})();
 startButton.addEventListener("click", function() {
    startButton.style.visibility = "hidden";
    squares.forEach(square => {
