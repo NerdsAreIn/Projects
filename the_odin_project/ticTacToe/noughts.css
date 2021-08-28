@@ -171,6 +171,7 @@ width: 100vw;
 z-index: 1;
 background-color: grey;
 margin: 0;
+opacity: 1;
 position: absolute;
 text-align: center;
 border: 10px solid lightgrey;

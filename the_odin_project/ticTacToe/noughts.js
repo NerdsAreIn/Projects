@@ -2,7 +2,7 @@ const startButton = document.getElementById("start");
 const board = document.getElementById("gameboard");
 const playerControls = document.getElementById("playerControls");
 const displayText = document.getElementById("displayText");
-let squares = Array.from(document.getElementsByClassName("squares"));
+const squares = Array.from(document.getElementsByClassName("squares"));
 const player1Name = document.getElementById("player1Name");
 const player2Name = document.getElementById("player2Name");
 const AI_button = document.getElementsByClassName("choice-button")[0];
@@ -13,12 +13,25 @@ let mode;
 const gameControl = (function() {
 	const closeChoiceScreen = function() {
 		choiceScreen.className = "gone";
-// make a function to set choiceScreen display to "none" after 2 seconds
-        setTimeout()
+        setTimeout(() => {
+			choiceScreen.setAttribute("style", "display: none");
+		}, 2000);
+        startButton.style.visibility = "visible";
+        startButton.textContent = "START GAME";
 	};
-	AI_button.addEventListener("click", function() {
-	mode = "AI";
+	twoPlayerButton.addEventListener("click", function(e) {
+	e.stopPropagation();
+	mode = "2Player";
 	closeChoiceScreen();
+	return mode;
+	});
+	AI_button.addEventListener("click", function(e) {
+    e.stopPropagation();
+	mode = "AI";
+	player2Name.value = "computer";
+    player2Name.readOnly = true;
+	closeChoiceScreen();
+	return mode;
 	});
 })();
 startButton.addEventListener("click", function() {
@@ -61,12 +74,16 @@ startButton.addEventListener("click", function() {
 		const endGame = function(winner) {
 			noughtAndCrosses = [];            
             board.classList.add("disabled");
-            createReplayButton();
-			displayResult(winner);
+            displayResult(winner);
+			createReplayButton();
 		};
 		const createReplayButton = function() {
 			startButton.textContent = "Play Again";
             startButton.style.visibility = "visible";
+            startButton.onclick = () => {
+				choiceScreen.classList.remove("gone");
+                choiceScreen.style.display = "block";
+			};
 		};
         const displayResult = function(winner) {
 			if (winner == "no winner") {
