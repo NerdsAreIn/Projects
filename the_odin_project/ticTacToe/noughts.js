@@ -1,4 +1,4 @@
-const startButton = document.getElementById("start");
+const startButton = document.createElement("button");
 const board = document.getElementById("gameboard");
 const playerControls = document.getElementById("playerControls");
 const displayText = document.getElementById("displayText");
@@ -8,34 +8,45 @@ const player2Name = document.getElementById("player2Name");
 const AI_button = document.getElementsByClassName("choice-button")[0];
 const twoPlayerButton = document.getElementsByClassName("choice-button")[1];
 const choiceScreen = document.getElementById("choice-screen");
+const createPlayer = (name, symbol) => {
+	return {name, symbol};
+};
+const player1 = createPlayer("nought", "O");
+const player2 = createPlayer("cross", "X");
+
 let mode;
 
 const gameControl = (function() {
-	const closeChoiceScreen = function() {
+   	const closeChoiceScreen = function() {
 		choiceScreen.className = "gone";
         setTimeout(() => {
 			choiceScreen.setAttribute("style", "display: none");
-		}, 2000);
-        startButton.style.visibility = "visible";
-        startButton.textContent = "START GAME";
+		}, 1000);               
 	};
+	const createStartButton = function() {
+		displayText.textContent = "";
+        startButton.textContent = "START GAME";			
+		playerControls.appendChild(startButton);	
+		return startButton;
+	};	
 	twoPlayerButton.addEventListener("click", function(e) {
-	e.stopPropagation();
-	mode = "2Player";
-	closeChoiceScreen();
-	return mode;
+		e.stopPropagation();
+		mode = "2Player";
+		closeChoiceScreen();
+		createStartButton();
 	});
 	AI_button.addEventListener("click", function(e) {
-    e.stopPropagation();
-	mode = "AI";
-	player2Name.value = "computer";
-    player2Name.readOnly = true;
-	closeChoiceScreen();
-	return mode;
-	});
+		e.stopPropagation();
+		mode = "AI";
+		player2Name.value = "computer";
+		player2Name.readOnly = true;
+		createStartButton();
+		closeChoiceScreen();	
+	});    
 })();
+
 startButton.addEventListener("click", function() {
-   startButton.style.visibility = "hidden";
+   		startButton.remove();
    squares.forEach(square => {
 		if (square.hasChildNodes()) {
 			console.log("child found!");
@@ -78,11 +89,14 @@ startButton.addEventListener("click", function() {
 			createReplayButton();
 		};
 		const createReplayButton = function() {
-			startButton.textContent = "Play Again";
-            startButton.style.visibility = "visible";
-            startButton.onclick = () => {
+			let replayButton = document.createElement("button");
+			replayButton.textContent = "PLAY AGAIN";
+			playerControls.appendChild(replayButton);
+			replayButton.textContent = "Play Again";
+                     replayButton.onclick = () => {
 				choiceScreen.classList.remove("gone");
                 choiceScreen.style.display = "block";
+				replayButton.remove();
 			};
 		};
         const displayResult = function(winner) {
@@ -136,13 +150,7 @@ startButton.addEventListener("click", function() {
 					checkForWinner();
 				}            			
 			});
-		}
+		}	
 	})();
 });
 
-const createPlayer = (name, symbol) => {
-	return {name, symbol};
-};
-
-const player1 = createPlayer("nought", "O");
-const player2 = createPlayer("cross", "X");
