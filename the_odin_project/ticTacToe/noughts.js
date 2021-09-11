@@ -66,30 +66,14 @@ startButton.addEventListener("click", function() {
 		}
 	});   
     board.classList.remove("disabled");
+
 	const gameBoard = (function() {
 		let player;
 		let winner;
 		let noughtsAndCrosses = [];
 		let sign;
 		let signContainer;
-		displayText.textContent = `${player1.username} goes first.`;
-		const takeTurns = function() {
-			if (player == player1) player = player2;
-			else player = player1;
-			//console.log({player});
-			return player;
-		};
-		const createSign = function() {
-			signContainer = document.createElement("div");
-			sign = document.createTextNode(player.symbol);
-			signContainer.appendChild(sign);
-            //signContainer.className = "signContainer";
-			if (sign.nodeValue == "O")  {
-				signContainer.classList.add("nought");
-			}             
-			//console.log({sign});
-			return signContainer;
-		};   
+		displayText.textContent = `${player1.username} goes first.`;		
 		const endGame = function(winner) {
 			noughtsAndCrosses = [];            
             board.classList.add("disabled");
@@ -102,7 +86,7 @@ startButton.addEventListener("click", function() {
 			playerControls.appendChild(replayButton);
 			replayButton.onclick = () => {
 				choiceScreen.classList.remove("gone");
-                		choiceScreen.style.display = "block";
+                choiceScreen.style.display = "block";
 				replayButton.remove();
 			};
 		};
@@ -112,7 +96,6 @@ startButton.addEventListener("click", function() {
 			}
             else {
 				displayText.innerHTML = `<p>GAME OVER.</p><p>The winner is ${winner.					username}.</p>`;
-				//console.log({winner});
             }
 		};
 		const checkForWinner = function() {
@@ -129,35 +112,111 @@ startButton.addEventListener("click", function() {
 				return winner;
 			}
 			else if (Object.values(noughtsAndCrosses).length == 9 && noughtsAndCrosses.length == 10 && winner == undefined) {
-				winner ="no winner";
+				winner = "no winner";
 				endGame(winner); 
                 return winner;       
 		    }
 		};	
-		for (let i = 0; i < squares.length; i++) {
-			squares[i].addEventListener("click", function() {
-                if (winner == player1 || winner == player2||winner == "no winner"){  							return;
-				}
-				else {
-					displayText.textContent = "";
-					// Alternate between two players on each click:
-					takeTurns();
-					// Generate the corresponding sign for the current player:
-					createSign();
-					// Put the sign in the clicked square if that square is empty:
-					if (!(squares[i].hasChildNodes())) {
-						squares[i].appendChild(signContainer);
-						noughtsAndCrosses[squares[i].id] = sign.nodeValue;
-						console.log({noughtsAndCrosses});
+
+		if (mode == "AI") {
+	 		let randomNumber;
+			let nought;
+			let noughtContainer;
+			let cross;
+			let crossContainer;
+            for (let i = 0; i < squares.length; i++) {
+				squares[i].addEventListener("click", function() {
+					if (winner == player1 || winner == player2||winner == "no winner") {  												return;
 					}
 					else {
+						displayText.textContent = "";			
+						//Put the nought in the clicked square if that square is empty:
+						if (!(squares[i].hasChildNodes())) {
+                            noughtContainer = document.createElement("div");				
+				            noughtContainer.appendChild(createNought());
+				            noughtContainer.classList.add("nought");
+							squares[i].appendChild(noughtContainer);
+							noughtsAndCrosses[squares[i].id] = createNought().nodeValue;
+							console.log({noughtsAndCrosses});
+                            if (winner == undefined) { 
+                                randomMove();
+                            }
+						}
+						else {
+							randomMove();
+						}            	
+						checkForWinner();
+					}            			
+				});
+			} 		        
+			const randomMove = function() {                
+					randomNumber = Math.floor(Math.random() * 9);	
+					console.log({randomNumber});	
+                     if (Object.values(noughtsAndCrosses).length == 9 && noughtsAndCrosses.length == 10) {
+                        checkForWinner();
+						return;
+					}		
+					 else if (!(squares[randomNumber].hasChildNodes())) {	
+                        crossContainer = document.createElement("div");
+                        crossContainer.appendChild(createCross());									        
+						setTimeout(() => {squares[randomNumber].appendChild(crossContainer);}, 1000);
+                        noughtsAndCrosses[randomNumber + 1] = createCross().nodeValue;
+                        console.log({noughtsAndCrosses});
+                        checkForWinner();
+ 					}
+					else randomMove();				
+			};
+            const createNought = function() {			
+				nought = document.createTextNode(player1.symbol);				
+				return nought;
+			};
+			const createCross = function() {
+				cross = document.createTextNode(player2.symbol);				
+				return cross;
+			};
+		}
+        else if (mode == "2Player") {
+			const takeTurns = function() {
+				if (player == player1) player = player2;
+				else player = player1;
+				//console.log({player});
+				return player;
+			};
+			const createSign = function() {
+				signContainer = document.createElement("div");
+				sign = document.createTextNode(player.symbol);
+				signContainer.appendChild(sign);
+				if (sign.nodeValue == "O")  {
+					signContainer.classList.add("nought");
+				}             
+				//console.log({sign});
+				return signContainer;
+			}; 		
+			for (let i = 0; i < squares.length; i++) {
+				squares[i].addEventListener("click", function() {
+					if (winner == player1 || winner == player2||winner == "no winner") {  												return;
+					}
+					else {
+						displayText.textContent = "";
+						// Alternate between two players on each click:
 						takeTurns();
+						// Generate the corresponding sign for the current player:
 						createSign();
-					}            	
-					checkForWinner();
-				}            			
-			});
-		}	
+						// Put the sign in the clicked square if that square is empty:
+						if (!(squares[i].hasChildNodes())) {
+							squares[i].appendChild(signContainer);
+							noughtsAndCrosses[squares[i].id] = sign.nodeValue;
+							console.log({noughtsAndCrosses});
+						}
+						else {
+							takeTurns();
+							createSign();
+						}            	
+						checkForWinner();
+					}            			
+				});
+			}
+		}
 	})();
 });
 
