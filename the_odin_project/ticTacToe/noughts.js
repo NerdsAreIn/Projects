@@ -9,7 +9,8 @@ const AI_button = document.getElementsByClassName("choice-button")[0];
 const twoPlayerButton = document.getElementsByClassName("choice-button")[1];
 const choiceScreen = document.getElementById("choice-screen");
 const createPlayer = (name, symbol) => {
-	return {name, symbol};
+    let username;
+	return {name, symbol, username};
 };
 const player1 = createPlayer("nought", "O");
 const player2 = createPlayer("cross", "X");
@@ -17,14 +18,22 @@ const player2 = createPlayer("cross", "X");
 let mode;
 
 const gameControl = (function() {
-   	const closeChoiceScreen = function() {
+    const closeChoiceScreen = function() {
+		displayText.textContent = "";
+ 		createStartButton();
+        setName();
 		choiceScreen.className = "gone";
         setTimeout(() => {
 			choiceScreen.setAttribute("style", "display: none");
 		}, 1000);               
 	};
-	const createStartButton = function() {
-		displayText.textContent = "";
+    const setName = function() {
+		if (mode == "AI") { 
+        player2Name.value = "computer";
+		player2Name.readOnly = true;
+        }
+	};
+	const createStartButton = function() {		
         startButton.textContent = "START GAME";			
 		playerControls.appendChild(startButton);	
 		return startButton;
@@ -32,31 +41,30 @@ const gameControl = (function() {
 	twoPlayerButton.addEventListener("click", function(e) {
 		e.stopPropagation();
 		mode = "2Player";
-		closeChoiceScreen();
-		createStartButton();
+		closeChoiceScreen();		
 	});
 	AI_button.addEventListener("click", function(e) {
 		e.stopPropagation();
-		mode = "AI";
-		player2Name.value = "computer";
-		player2Name.readOnly = true;
-		createStartButton();
+		mode = "AI";		
 		closeChoiceScreen();	
 	});    
 })();
 
 startButton.addEventListener("click", function() {
-   		startButton.remove();
-   squares.forEach(square => {
+	const assignPlayerNames = function() {		
+    	if (player1Name.value) {player1.username = player1Name.value;}
+    	else player1.username = "Nought";
+    	if (player2Name.value) {player2.username = player2Name.value;}
+    	else player2.username = "Cross";
+    };
+    assignPlayerNames();
+   	startButton.remove();
+    squares.forEach(square => {
 		if (square.hasChildNodes()) {
-			console.log("child found!");
+			//console.log("child found!");
 			square.innerHTML = "";
 		}
-	});
-    if (player1Name.value) {player1.username = player1Name.value;}
-    else player1.username = "Nought";
-	if (player2Name.value) {player2.username = player2Name.value;}
-    else player2.username = "Cross";
+	});   
     board.classList.remove("disabled");
 	const gameBoard = (function() {
 		let player;
@@ -68,22 +76,22 @@ startButton.addEventListener("click", function() {
 		const takeTurns = function() {
 			if (player == player1) player = player2;
 			else player = player1;
-			console.log({player});
+			//console.log({player});
 			return player;
 		};
 		const createSign = function() {
 			signContainer = document.createElement("div");
 			sign = document.createTextNode(player.symbol);
 			signContainer.appendChild(sign);
-            signContainer.className = "signContainer";
+            //signContainer.className = "signContainer";
 			if (sign.nodeValue == "O")  {
 				signContainer.classList.add("nought");
 			}             
-			console.log({sign});
+			//console.log({sign});
 			return signContainer;
 		};   
 		const endGame = function(winner) {
-			noughtAndCrosses = [];            
+			noughtsAndCrosses = [];            
             board.classList.add("disabled");
             displayResult(winner);
 			createReplayButton();
@@ -92,10 +100,9 @@ startButton.addEventListener("click", function() {
 			let replayButton = document.createElement("button");
 			replayButton.textContent = "PLAY AGAIN";
 			playerControls.appendChild(replayButton);
-			replayButton.textContent = "Play Again";
-                     replayButton.onclick = () => {
+			replayButton.onclick = () => {
 				choiceScreen.classList.remove("gone");
-                choiceScreen.style.display = "block";
+                		choiceScreen.style.display = "block";
 				replayButton.remove();
 			};
 		};
@@ -104,8 +111,8 @@ startButton.addEventListener("click", function() {
 				displayText.innerHTML = "<p>GAME OVER.</p><p>It's a tie.</p>";
 			}
             else {
-				displayText.innerHTML = `<p>GAME OVER.</p><p>The winner is ${winner.username}.</p>`;
-				console.log({winner});
+				displayText.innerHTML = `<p>GAME OVER.</p><p>The winner is ${winner.					username}.</p>`;
+				//console.log({winner});
             }
 		};
 		const checkForWinner = function() {
