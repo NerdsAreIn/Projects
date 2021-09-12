@@ -59,15 +59,14 @@ startButton.addEventListener("click", function() {
     };
     assignPlayerNames();
    	startButton.remove();
-    squares.forEach(square => {
-		if (square.hasChildNodes()) {
-			//console.log("child found!");
-			square.innerHTML = "";
-		}
-	});   
     board.classList.remove("disabled");
 
 	const gameBoard = (function() {
+        squares.forEach(square => {
+			if (square.hasChildNodes()) {
+				square.innerHTML = "";
+			}
+		});   
 		let player;
 		let winner;
 		let noughtsAndCrosses = [];
@@ -124,47 +123,46 @@ startButton.addEventListener("click", function() {
 			let noughtContainer;
 			let cross;
 			let crossContainer;
-            for (let i = 0; i < squares.length; i++) {
-				squares[i].addEventListener("click", function() {
-					if (winner == player1 || winner == player2||winner == "no winner") {  												return;
+			for (let i = 0; i < squares.length; i++) {
+                squares[i].onclick = () => {
+					if (winner == player1 || winner == player2||winner == "no winner") {  		
+						return;
 					}
 					else {
-						displayText.textContent = "";			
+                    	displayText.textContent = "";								
 						//Put the nought in the clicked square if that square is empty:
 						if (!(squares[i].hasChildNodes())) {
-                            noughtContainer = document.createElement("div");				
-				            noughtContainer.appendChild(createNought());
-				            noughtContainer.classList.add("nought");
+							noughtContainer = document.createElement("div");				
+							noughtContainer.appendChild(createNought());
+							noughtContainer.classList.add("nought");
 							squares[i].appendChild(noughtContainer);
 							noughtsAndCrosses[squares[i].id] = createNought().nodeValue;
 							console.log({noughtsAndCrosses});
-                            if (winner == undefined) { 
-                                randomMove();
-                            }
+							checkForWinner();
+							randomMove();
 						}
 						else {
 							randomMove();
-						}            	
-						checkForWinner();
-					}            			
-				});
-			} 		        
-			const randomMove = function() {                
-					randomNumber = Math.floor(Math.random() * 9);	
-					console.log({randomNumber});	
-                     if (Object.values(noughtsAndCrosses).length == 9 && noughtsAndCrosses.length == 10) {
-                        checkForWinner();
-						return;
-					}		
-					 else if (!(squares[randomNumber].hasChildNodes())) {	
-                        crossContainer = document.createElement("div");
-                        crossContainer.appendChild(createCross());									        
-						setTimeout(() => {squares[randomNumber].appendChild(crossContainer);}, 1000);
-                        noughtsAndCrosses[randomNumber + 1] = createCross().nodeValue;
-                        console.log({noughtsAndCrosses});
-                        checkForWinner();
- 					}
-					else randomMove();				
+						}	
+					}			  
+				}
+			}            				       
+            const randomMove = function() {  
+				randomNumber = Math.floor(Math.random() * 9);	
+				console.log({randomNumber});	
+				if (Object.values(noughtsAndCrosses).length == 9 && noughtsAndCrosses.length == 10|| winner != undefined) {
+				//checkForWinner();
+				return;
+				}		
+				else if (!(squares[randomNumber].hasChildNodes())) {	
+				crossContainer = document.createElement("div");
+				crossContainer.appendChild(createCross());									        
+				setTimeout(() => {squares[randomNumber].appendChild(crossContainer);}, 1000);
+				noughtsAndCrosses[randomNumber + 1] = createCross().nodeValue;
+				console.log({noughtsAndCrosses});
+				checkForWinner();
+				}
+				else randomMove();
 			};
             const createNought = function() {			
 				nought = document.createTextNode(player1.symbol);				
