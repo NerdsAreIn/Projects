@@ -1,0 +1,39 @@
+
+// function to sort words according to the index of "a":
+function compareWords(word1, word2) {
+	let index1 = word1.indexOf("a");
+	let index2 = word2.indexOf("a");
+	if (index1 > index2){ 
+		return 1;
+	}
+}
+
+let arrayA = ["apple", "chocolate", "boat", "baby"];
+arrayA.sort(compareWords);// result: [ "apple", "baby", "boat", "chocolate"]
+
+let trioArray = ["Harry", "Ron", "Hermione"]; // initial variable value
+
+trioArray.map(name => name.indexOf("n")); // result of call on original array: [ -1, 2, 6 ] = Harry, Ron, Hermione
+
+trioArray.sort((character1, character2) => {
+	if (character1 > character2) {
+		return 1;
+        }                            
+}); // result: [ "Harry", "Hermione", "Ron" ]
+
+// earlier function redefined to sort according to "o" index:
+function compareWords(word1, word2) {
+	let index1 = word1.indexOf("o");
+	let index2 = word2.indexOf("o");
+	if (index1 > index2){ 
+		return 1;
+	}
+}
+
+trioArray.sort(compareWords); // [ "Harry", "Ron", "Hermione" ]
+
+trioArray.map(name => name.toUpperCase()); // [ "HARRY", "RON", "HERMIONE" ] - does not alter original array
+
+trioArray.filter(name => name.includes("r")); // [ "Harry", "Hermione" ] - does not change original array
+
+
